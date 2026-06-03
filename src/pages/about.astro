@@ -1,0 +1,54 @@
+---
+import { focusAreas, nowList, site, values } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About | Julia Muiruri" pathname="/about/">
+	<!-- Intro -->
+	<div class="about-intro">
+		<div>
+			<h1 class="about-intro__title">About</h1>
+			<p>{site.role}. Based in {site.location}.</p>
+			<p>
+				I work in developer advocacy with a focus on developer experiences and applied AI.
+				What matters most to me is creating experiences that help people understand
+				modern tools well enough to actually use them.
+			</p>
+		</div>
+		<img class="about-intro__photo" src="/images/julia.jpeg" alt="Julia Muiruri" loading="eager" />
+	</div>
+
+	<!-- Values -->
+	<div class="about-section">
+		<h2 class="about-section__title">Values</h2>
+		<div class="values-grid">
+			{values.map((v) => (
+				<div class="value-item">
+					<p class="value-item__title">{v.title}</p>
+					<p class="value-item__desc">{v.description}</p>
+				</div>
+			))}
+		</div>
+	</div>
+
+	<!-- Focus -->
+	<div class="about-section">
+		<h2 class="about-section__title">Focus areas</h2>
+		<div class="values-grid">
+			{focusAreas.map((area) => (
+				<div class="value-item">
+					<p class="value-item__title">{area.title}</p>
+					<p class="value-item__desc">{area.description}</p>
+				</div>
+			))}
+		</div>
+	</div>
+
+	<!-- Now -->
+	<div class="about-section">
+		<h2 class="about-section__title">Now</h2>
+		<ul class="now-list">
+			{nowList.map((item) => <li>{item}</li>)}
+		</ul>
+	</div>
+</BaseLayout>

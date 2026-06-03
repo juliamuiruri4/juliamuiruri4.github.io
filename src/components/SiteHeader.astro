@@ -1,0 +1,32 @@
+---
+import { site } from '../data/site';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+	currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const isActive = (href: string) => {
+	if (href === '/') return currentPath === '/';
+	return currentPath.startsWith(href);
+};
+---
+
+<header class="site-header">
+	<a class="site-header__brand" href="/" aria-label="Julia Muiruri home">Julia Muiruri</a>
+
+	<div class="site-header__right">
+		<nav class="site-nav" aria-label="Primary">
+			{
+				site.navLinks.map((link) => (
+					<a class:list={['site-nav__link', isActive(link.href) && 'is-active']} href={link.href}>
+						{link.label}
+					</a>
+				))
+			}
+		</nav>
+		<ThemeToggle />
+	</div>
+</header>

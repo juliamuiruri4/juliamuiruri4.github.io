@@ -1,0 +1,70 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const events = await getCollection('events');
+	return events.map((event) => ({
+		params: { slug: event.id },
+		props: { event },
+	}));
+}
+
+const { event } = Astro.props;
+const { Content } = await render(event);
+const pathname = `/events/${event.id}/`;
+---
+
+<BaseLayout
+	title={`${event.data.title} | Julia Muiruri`}
+	description={event.data.summary}
+	pathname={pathname}
+>
+	<div class="detail-header">
+		<p class="detail-header__eyebrow">{event.data.format}</p>
+		<h1 class="detail-header__title">{event.data.title}</h1>
+		<p class="detail-header__desc">{event.data.summary}</p>
+		<div class="detail-meta">
+			<span class="detail-meta__item">
+				<span class="detail-meta__label">Status</span> {event.data.status}
+			</span>
+			<span class="detail-meta__item">
+				<span class="detail-meta__label">Duration</span> {event.data.duration}
+			</span>
+			<span class="detail-meta__item">
+				<span class="detail-meta__label">Audience</span> {event.data.audience}
+			</span>
+			{event.data.date && (
+				<span class="detail-meta__item">
+					<span class="detail-meta__label">Date</span>
+					{event.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+				</span>
+			)}
+			{event.data.location && (
+				<span class="detail-meta__item">
+					<span class="detail-meta__label">Location</span> {event.data.location}
+				</span>
+			)}
+		</div>
+	</div>
+
+	<div class="detail-layout">
+		<article class="prose">
+			<Content />
+		</article>
+
+		<aside class="detail-sidebar">
+			<div>
+				<p class="sidebar-section__title">Topics</p>
+				<ul class="sidebar-list">
+					{event.data.topics.map((topic) => <li>{topic}</li>)}
+				</ul>
+			</div>
+			{event.data.ctaUrl && (
+				<a class="sidebar-link" href={event.data.ctaUrl} target="_blank" rel="noreferrer">
+					Learn more &rarr;
+				</a>
+			)}
+		</aside>
+	</div>
+</BaseLayout>

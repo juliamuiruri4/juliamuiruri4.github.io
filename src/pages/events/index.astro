@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allEvents = await getCollection('events');
+
+const upcoming = allEvents
+	.filter((e) => e.data.status === 'Upcoming')
+	.sort((a, b) => {
+		if (a.data.date && b.data.date) return a.data.date.valueOf() - b.data.date.valueOf();
+		return a.data.order - b.data.order;
+	});
+
+const available = allEvents
+	.filter((e) => e.data.status === 'Available')
+	.sort((a, b) => a.data.order - b.data.order);
+
+const past = allEvents
+	.filter((e) => e.data.status === 'Past')
+	.sort((a, b) => {
+		if (a.data.date && b.data.date) return b.data.date.valueOf() - a.data.date.valueOf();
+		return a.data.order - b.data.order;
+	});
+---
+
+<BaseLayout title="Events | Julia Muiruri" pathname="/events/">
+	<div class="page-header">
+		<h1 class="page-header__title">Speaking & Events</h1>
+		<p class="page-header__desc">Talks, workshops and sessions I can bring to your event or community.</p>
+	</div>
+
+	{upcoming.length > 0 && (
+		<div class="event-group">
+			<p class="event-group__label">Upcoming</p>
+			<div class="post-list">
+				{upcoming.map((event) => (
+					<a class="event-item" href={`/events/${event.id}/`}>
+						<span class="event-item__title">{event.data.title}</span>
+						<span class="event-item__meta">
+							{event.data.format}
+							{event.data.date && ` · ${event.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`}
+							{event.data.location && ` · ${event.data.location}`}
+						</span>
+						<p class="event-item__summary">{event.data.summary}</p>
+					</a>
+				))}
+			</div>
+		</div>
+	)}
+
+	{available.length > 0 && (
+		<div class="event-group">
+			<p class="event-group__label">Available topics</p>
+			<div class="post-list">
+				{available.map((event) => (
+					<a class="event-item" href={`/events/${event.id}/`}>
+						<span class="event-item__title">{event.data.title}</span>
+						<span class="event-item__meta">{event.data.format} · {event.data.duration}</span>
+						<p class="event-item__summary">{event.data.summary}</p>
+					</a>
+				))}
+			</div>
+		</div>
+	)}
+
+	{past.length > 0 && (
+		<div class="event-group">
+			<p class="event-group__label">Past</p>
+			<div class="post-list">
+				{past.map((event) => (
+					<a class="event-item" href={`/events/${event.id}/`}>
+						<span class="event-item__title">{event.data.title}</span>
+						<span class="event-item__meta">
+							{event.data.format}
+							{event.data.date && ` · ${event.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`}
+							{event.data.location && ` · ${event.data.location}`}
+						</span>
+					</a>
+				))}
+			</div>
+		</div>
+	)}
+</BaseLayout>

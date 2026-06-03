@@ -1,0 +1,66 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const pathname = `/projects/${project.id}/`;
+---
+
+<BaseLayout
+	title={`${project.data.title} | Julia Muiruri`}
+	description={project.data.summary}
+	pathname={pathname}
+>
+	<div class="detail-header">
+		<p class="detail-header__eyebrow">Project</p>
+		<h1 class="detail-header__title">{project.data.title}</h1>
+		<p class="detail-header__desc">{project.data.summary}</p>
+		<div class="detail-meta">
+			<span class="detail-meta__item">
+				<span class="detail-meta__label">Status</span> {project.data.status}
+			</span>
+			<span class="detail-meta__item">
+				<span class="detail-meta__label">Year</span> {project.data.year}
+			</span>
+			{project.data.role && (
+				<span class="detail-meta__item">
+					<span class="detail-meta__label">Role</span> {project.data.role}
+				</span>
+			)}
+		</div>
+	</div>
+
+	<div class="detail-layout">
+		<article class="prose">
+			<Content />
+		</article>
+
+		<aside class="detail-sidebar">
+			<div>
+				<p class="sidebar-section__title">Stack</p>
+				<ul class="sidebar-list">
+					{project.data.stack.map((item) => <li>{item}</li>)}
+				</ul>
+			</div>
+			{project.data.repoUrl && (
+				<a class="sidebar-link" href={project.data.repoUrl} target="_blank" rel="noreferrer">
+					View repository &rarr;
+				</a>
+			)}
+			{project.data.demoUrl && (
+				<a class="sidebar-link" href={project.data.demoUrl} target="_blank" rel="noreferrer">
+					Open demo &rarr;
+				</a>
+			)}
+		</aside>
+	</div>
+</BaseLayout>

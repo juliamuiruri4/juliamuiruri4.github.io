@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" rx="36" fill="#081019"/>
+  <rect x="28" y="28" width="1144" height="574" rx="28" fill="#0d1721" stroke="#203445"/>
+  <circle cx="1038" cy="126" r="88" fill="#59d0b4" opacity="0.16"/>
+  <circle cx="168" cy="498" r="116" fill="#ffb36b" opacity="0.14"/>
+  <rect x="82" y="86" width="228" height="46" rx="23" fill="#10212c" stroke="#284558"/>
+  <text x="112" y="116" fill="#9ef0da" font-size="22" font-family="monospace">brand://julia</text>
+  <text x="82" y="236" fill="#ebf4ff" font-size="68" font-weight="700" font-family="sans-serif">Julia Muiruri</text>
+  <text x="82" y="302" fill="#c3d4e4" font-size="28" font-family="sans-serif">JavaScript Cloud Advocate building practical</text>
+  <text x="82" y="340" fill="#c3d4e4" font-size="28" font-family="sans-serif">cloud, AI, and developer learning experiences.</text>
+  <rect x="82" y="408" width="440" height="126" rx="24" fill="#0b1218" stroke="#203445"/>
+  <text x="112" y="452" fill="#9ef0da" font-size="21" font-family="monospace">focus</text>
+  <text x="112" y="488" fill="#ebf4ff" font-size="24" font-family="sans-serif">Projects • Writing • Speaking • Open source</text>
+  <text x="112" y="520" fill="#a7bed3" font-size="20" font-family="sans-serif">A visual, editorial, terminal-inspired personal site.</text>
+</svg>

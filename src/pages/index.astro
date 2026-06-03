@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+import { site } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const blogPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const featuredProjects = (await getCollection('projects'))
+	.filter((p) => p.data.featured)
+	.sort((a, b) => a.data.order - b.data.order || b.data.year - a.data.year)
+	.slice(0, 3);
+
+const featuredEvents = (await getCollection('events'))
+	.filter((e) => e.data.featured)
+	.sort((a, b) => a.data.order - b.data.order)
+	.slice(0, 3);
+---
+
+<BaseLayout pathname="/">
+	<!-- Intro -->
+	<section class="intro">
+		<div class="intro__text">
+			<h1 class="intro__greeting">Hi, I'm Julia</h1>
+			<p class="intro__role">{site.role}</p>
+			<div class="intro__bio">
+				{site.bio.map((paragraph) => (
+					<p>{paragraph}</p>
+				))}
+			</div>
+			<div class="socials">
+				{site.socialLinks.map((link) => (
+					<a href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
+				))}
+			</div>
+		</div>
+		<img class="intro__photo" src="/images/julia.jpeg" alt="Julia Muiruri" loading="eager" />
+	</section>
+
+	<hr class="separator" />
+
+	<!-- Recent posts -->
+	<section>
+		<h2 class="section-title">Recent posts</h2>
+		<div class="post-list">
+			{blogPosts.slice(0, 5).map((post) => (
+				<a class="post-item" href={`/blog/${post.id}/`}>
+					<span class="post-item__date">
+						{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+					</span>
+					<span class="post-item__title">{post.data.title}</span>
+					<span class="post-item__tags">
+						{post.data.tags.slice(0, 2).map((tag) => (
+							<span class="tag">{tag}</span>
+						))}
+					</span>
+				</a>
+			))}
+		</div>
+		<a class="view-all" href="/blog/">All posts</a>
+	</section>
+
+	<hr class="separator" />
+
+	<!-- Featured projects -->
+	<section>
+		<h2 class="section-title">Projects</h2>
+		<div class="project-grid">
+			{featuredProjects.map((project) => (
+				<a class="project-card" href={`/projects/${project.id}/`}>
+					<div class="project-card__header">
+						<span class="project-card__title">{project.data.title}</span>
+						<span class="project-card__year">{project.data.year}</span>
+					</div>
+					<p class="project-card__summary">{project.data.summary}</p>
+					<div class="project-card__meta">
+						{project.data.stack.slice(0, 3).map((tech) => (
+							<span class="tag">{tech}</span>
+						))}
+					</div>
+				</a>
+			))}
+		</div>
+		<a class="view-all" href="/projects/">All projects</a>
+	</section>
+
+	<hr class="separator" />
+
+	<!-- Speaking -->
+	<section>
+		<h2 class="section-title">Speaking</h2>
+		<div class="post-list">
+			{featuredEvents.map((event) => (
+				<a class="post-item" href={`/events/${event.id}/`}>
+					<span class="post-item__date">{event.data.format}</span>
+					<span class="post-item__title">{event.data.title}</span>
+					<span class="post-item__tags">
+						<span class="tag">{event.data.duration}</span>
+					</span>
+				</a>
+			))}
+		</div>
+		<a class="view-all" href="/events/">All events</a>
+	</section>
+</BaseLayout>
