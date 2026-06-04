@@ -31,8 +31,8 @@ const projects = defineCollection({
 	}),
 });
 
-const events = defineCollection({
-	loader: glob({ pattern: '**/[^_]*.md', base: './src/content/events' }),
+const speaking = defineCollection({
+	loader: glob({ pattern: '**/[^_]*.md', base: './src/content/speaking' }),
 	schema: z.object({
 		title: z.string(),
 		summary: z.string(),
@@ -50,4 +50,4 @@ const events = defineCollection({
 	}),
 });
 
-export const collections = { blog, projects, events };
+export const collections = { blog, projects, speaking };

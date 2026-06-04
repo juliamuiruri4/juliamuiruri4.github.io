@@ -15,7 +15,7 @@ export const site = {
 		{ href: '/about/', label: 'About' },
 		{ href: '/blog/', label: 'Blog' },
 		{ href: '/projects/', label: 'Projects' },
-		{ href: '/events/', label: 'Events' },
+		{ href: '/speaking/', label: 'Speaking' },
 	],
 	socialLinks: [
 		{ label: 'GitHub', href: 'https://github.com/juliamuiruri4' },
