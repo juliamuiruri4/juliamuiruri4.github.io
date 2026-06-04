@@ -1,5 +1,5 @@
 ---
-title: "Building an Burger Ordering AI Agent"
+title: "Building a Burger Ordering AI Agent with LangChain.js and MCP"
 summary: This talk demonstrates how to build a simple AI agent that interacts with customers to take their burger orders, covering the design, implementation, deployment and monitoring (Observability) of the agent.
 format: Talk
 status: Available
