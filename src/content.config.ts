@@ -50,4 +50,15 @@ const speaking = defineCollection({
 	}),
 });
 
-export const collections = { blog, projects, speaking };
+const videos = defineCollection({
+	loader: glob({ pattern: '**/[^_]*.md', base: './src/content/videos' }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		videoUrl: z.string(),
+		pubDate: z.coerce.date().optional(),
+		order: z.number().default(0),
+	}),
+});
+
+export const collections = { blog, projects, speaking, videos };

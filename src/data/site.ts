@@ -14,6 +14,7 @@ export const site = {
 		{ href: '/', label: 'Home' },
 		{ href: '/about/', label: 'About' },
 		{ href: '/blog/', label: 'Blog' },
+		{ href: '/videos/', label: 'Videos' },
 		{ href: '/projects/', label: 'Projects' },
 		{ href: '/speaking/', label: 'Speaking' },
 	],
