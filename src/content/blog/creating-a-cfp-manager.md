@@ -11,9 +11,13 @@ tags:
   - DevAdvokit
 ---
 
-It's Monday morning, and I'm getting ready to kick off the week. My inbox is mostly peaceful on Mondays, not many comms. go out on Fridays, but there is this one email I always get every start of the week.
+It's Monday morning, and I'm getting ready to kick off the week. My inbox is mostly peaceful on Mondays, not many comms go out on Fridays, but there is this one email I always get every start of the week.
+
+<figure class="img-sm">
 
 ![MS Tech CFP](/images/blogs/cfp-manager/ms-tech-email.gif)
+
+</figure>
 
 I'm subscribed to an internal Tech Events Call for Proposals and event support list that goes out every week.
 
@@ -96,7 +100,7 @@ Extract the following details for each CFP or event opportunity:
 
 <!-- markdownlint-disable MD033 -->
 <details>
-  <summary><strong>Puling my availability</strong></summary>
+  <summary><strong>Pulling my availability</strong></summary>
 
 ```text
 ### Step 2: Check My Availability
